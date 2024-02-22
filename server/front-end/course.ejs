@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course page</title>
+    <style>
+        .card{
+            width: 80vw;
+            margin: auto;
+            background-color: rgb(124, 147, 252);
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 2px grey;
+        }
+        .details{
+            width: 70%;
+        }
+        .details b{
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+     <h1>courses</h1>
+    <% for(var i=0;i<2;i++){%>
+    <div class="card">
+        <div class="image">
+           <img src= "<%=course[i].CRS_IMG%>" width=250 height="150" alt="">
+        </div>
+        <div class="details">
+            <b><%=course[i].COURSE_NAME%>
+            </b>
+            <p><%=course[i].DURATION%> hours</p>
+            <p>Lorem ipsum dolor siipsa possimus nesciunt voluptatum quaerat unde, dolorum reiciendis magni incidunt quas aliquam nisi!</p>
+        </div>
+    </div>
+    <!-- <div class="vedio">
+        <iframe width="560" height="315" src="<%=course[i].VEDIO%>"
+         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div> -->
+<%}%>
+</body>
+</html>
