@@ -14,8 +14,9 @@ var app=express();
 app.use(express.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
+app.use(express.static('public'));
 
-app.set('views', './front-end')
+app.set('views', './views')
 app.set('view engine','ejs')
 
 
@@ -24,24 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.sendFile('front-end/signup.html',{root:__dirname});
-});
-
-app.get('/course', function(req, res) {
-  console.log("I'm on the course page");
-  var sql = "SELECT * FROM course";
-  
-  con.query(sql, function(error, result) {
-    if (error) {
-      console.log(error);
-      // Handle errors here, you might want to send an error response to the client
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.render(__dirname + '/front-end/course.ejs', {course: result });
-      
-      console.log(result[0])
-    }
-  });
+  res.sendFile('views/signup.html',{root:__dirname});
 });
 
 app.post("/signup", (req, res) => {
@@ -71,6 +55,23 @@ app.post("/signup", (req, res) => {
   });
   
 
+  app.get('/course', function(req, res) {
+    console.log("I'm on the course page");
+    var sql = "SELECT * FROM course";
+    
+    con.query(sql, function(error, result) {
+      if (error) {
+        console.log(error);
+        // Handle errors here, you might want to send an error response to the client
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.render(__dirname + '/views/course.ejs', {course: result });
+        
+        console.log(result[0])
+      }
+    });
+  });
+  
 // app.get('/', (req, res) => {
 //     res.send('Hello, World!');
 // });
@@ -79,7 +80,7 @@ app.post("/signup", (req, res) => {
 //     res.sendFile(__dirname+'/signup.html');
 // });
 
-const port = 7000;
+const port = 8000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
