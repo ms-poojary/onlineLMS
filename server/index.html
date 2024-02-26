@@ -46,11 +46,41 @@
             </div>
         </div>
     </section>
-    <section class="domain">
+    <!-- <section class="domain-block">
         <h1>this is doman page</h1>
-    </section>
+        <div class="domain" onclick="coursepage(1)">
+        <h1>im domain 1</h1></div>
+    </section> -->
+    <div class="domain" data-domain-id="1">Domain 1</div>
+    <div class="domain" data-domain-id="2">Domain 2</div>
+    <div class="domain" data-domain-id="3">Domain 3</div>
+
+
 </div>
 <script src="/javascript/script.js"></script>
+<!-- <script>
+  function coursepage(id){
+    var req=new XMLHttpRequest();
+    req.open('get','/course-display?id='+id,true);
+    req.send('course.ejs');
+    console.log("inside fun")
+    req.onreadystatechange=function(){
+      console.log("inside ready state")
+      if(req.readyState==4 && req.status==200){
+        console.log("coursepage working")
+      }
+    }
+  }
+</script> -->
+<script>
+  const domains = document.querySelectorAll('.domain');
+  domains.forEach(domain => {
+      domain.addEventListener('click', () => {
+          const domainId = domain.getAttribute('data-domain-id');
+          window.location.href = '/course?id=' + domainId;
+      });
+  });
+</script>
 
 </body>
 </html>

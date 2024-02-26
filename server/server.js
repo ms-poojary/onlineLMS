@@ -29,7 +29,6 @@ app.get('/signup', (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-
     const username=req.body.username;
     const name=req.body.fullname;
     const email = req.body.email;
@@ -54,31 +53,43 @@ app.post("/signup", (req, res) => {
     } 
   });
   
-
-  app.get('/course', function(req, res) {
+// all the courses
+  app.get('/courses', function(req, res) {
     console.log("I'm on the course page");
     var sql = "SELECT * FROM course";
     
     con.query(sql, function(error, result) {
       if (error) {
         console.log(error);
-        // Handle errors here, you might want to send an error response to the client
         res.status(500).send('Internal Server Error');
       } else {
         res.render(__dirname + '/views/course.ejs', {course: result });
-        
-        console.log(result[0])
+        // console.log(result[0])
       }
     });
   });
   
-// app.get('/', (req, res) => {
-//     res.send('Hello, World!');
-// });
 
-// app.get('/signup', (req, res) => {
-//     res.sendFile(__dirname+'/signup.html');
-// });
+// display course ids
+app.get('/course', (req, res) => {
+  const id = req.query.id;
+  console.log(id)
+  const sql = 'SELECT * FROM course WHERE DOMAIN_ID= ?';
+  con.query(sql,[id] ,(error, result) => {
+    console.log(result)
+    if (error) {
+        console.error('Error fetching courses:', error);
+        res.status(500).send('Error fetching courses.');
+    } else {
+      res.render('course', {course:result });
+        res.json(result);
+    }
+});
+});
+
+
+
+
 
 const port = 8000;
 app.listen(port, () => {

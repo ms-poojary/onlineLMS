@@ -25,7 +25,8 @@
 </head>
 <body>
      <h1>courses</h1>
-    <% for(var i=0;i<2;i++){%>
+    <% for(var i=0;i<course.length;i++){%>
+        <h1>im domain id of <%=course[i].DOMAIN_ID%></h1>
     <div class="card">
         <div class="image">
            <img src= "<%=course[i].CRS_IMG%>" width=250 height="150" alt="">
