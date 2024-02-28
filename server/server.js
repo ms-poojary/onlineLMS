@@ -16,7 +16,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-app.set('views', './views')
+app.set('views','./views')
 app.set('view engine','ejs')
 
 
@@ -25,8 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.sendFile('views/signup.html',{root:__dirname});
-});
+  res.sendFile('signup.html', { root: './views' });});
 
 app.post("/signup", (req, res) => {
     const username=req.body.username;
@@ -35,8 +34,6 @@ app.post("/signup", (req, res) => {
     const password=req.body.pass;
     const cpass=req.body.confirm_pass;
     const role=req.body.role;
-    console.log(req.body.username+ name+email+password +cpass+role);
-    
     if(password==cpass){
     con.query("INSERT INTO `users` (`USERNAME`, `FULLNAME`, `EMAIL`, `USER_PASS`, `ROLE`) VALUES (?,?,?,?,?);",
     [username,name,email,cpass,role],
@@ -44,9 +41,8 @@ app.post("/signup", (req, res) => {
         if (err) {
           console.log(err.message);
         } else {
-          res.send(result);
-          // console.log(result.insertId)
-          console.log("value inserted succesffully as"+username+ name+email+password +cpass+role)
+          console.log("value inserted succesffully");
+          
         }
       }
     );
@@ -64,7 +60,6 @@ app.post("/signup", (req, res) => {
         res.status(500).send('Internal Server Error');
       } else {
         res.render(__dirname + '/views/course.ejs', {course: result });
-        // console.log(result[0])
       }
     });
   });
@@ -73,25 +68,40 @@ app.post("/signup", (req, res) => {
 // display course ids
 app.get('/course', (req, res) => {
   const id = req.query.id;
-  console.log(id)
   const sql = 'SELECT * FROM course WHERE DOMAIN_ID= ?';
   con.query(sql,[id] ,(error, result) => {
-    console.log(result)
     if (error) {
         console.error('Error fetching courses:', error);
         res.status(500).send('Error fetching courses.');
     } else {
       res.render('course', {course:result });
-        res.json(result);
     }
 });
 });
 
 
 
+app.get('/domains', (req, res) => {
+  const query = 'SELECT * FROM domain';
+
+con.query(query, (error, result,) => {
+  if (error) {
+    console.error('Error fetching domains: ' + error.stack);
+    return;
+  }
+else
+  res.json(result);
+});
+});
 
 
-const port = 8000;
+
+
+
+
+
+
+const port = 8006;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
