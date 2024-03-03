@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>online learning</title>
-  <!-- <link rel="stylesheet"  href="/stylesheet/style.css"> -->
-  <link rel="stylesheet" href="./public/stylesheet/style.css">
+  <link rel="stylesheet"  href="/stylesheet/style.css">
+  <!-- <link rel="stylesheet" href="./public/stylesheet/style.css"> -->
+<link rel="stylesheet" href="/stylesheet/test.css">
+<link rel="stylesheet" href="/stylesheet/output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    .domain-box{
+    /* .domain-box{
       background-color: rgb(172, 123, 172);
       width: 400px;
       height: 50px;
       margin: 30px;
-    }
+    } */
   </style>
 </head>
 <body>
@@ -29,15 +31,14 @@
             </div>
             <ul class="menu-items">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Contact</a></li>
+                <!-- <li><a href="#">About</a></li> -->
+                <li><a href="signup">Signup</a></li>
+                <li><a href="#">Login</a></li>
                 <li><div class="wrapper">
                   <div class="search-input">
                     <a href="" target="_blank" hidden></a>
                     <input type="text" placeholder="Type to search..">
                     <div class="autocom-box">
-                      <!-- here list are inserted from javascript -->
                     </div>
                     <div class="icon"><i class="fas fa-search"></i></div>
                   </div>
@@ -47,56 +48,51 @@
         
         </div>
     </nav>
-    <section>
-        <div class="main">
-            <div class="about">
-                <h1>hello learning</h1>
-                <p>this is lorem paragraph andjsllffffffff </p>
-                <button class="explore-btn">explore</button>
-            </div>
+    <section class="main">
+      <div class="hero">
+        <div class="images">
+          <img id="laptop" src="images/bg-laptop.png" alt="" />
+          <img id="cup" src="images/cup.png" alt="" />
+          <img id="pen" src="images/pen.png" alt="" />
+          <img id="pot" src="images/pot.png" alt="" />
         </div>
-    </section>
-    
-    <section>
-      <div id="domainsContainer">
-        <!-- data from database -->
-      <h1>getting data from database</h1>
+        <div class="title">
+          <div class="title-head">
+            <h2 class="text-4xl">Bright your future</h2>
+            <span class="text-3xl">with</span>
+            <h1>online learning</h1>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem,
+              magnam. Quas facilis suscipit quidem, cumque perspiciatis est
+              sapiente nemo temporibus nesciunt, numquam adipisci ratione vitae
+              quis fugiat ipsum error tempore!
+            </p>
+          </div>
+          <div class="button-container">
+            <a href="courses" class="button button-float">Explore</a>
+          </div>
+        </div>
       </div>
     </section>
+    
+    <main class="domain">
+      <div class="domain-head">
+        <h3>choose the domain</h3>
+      </div>
+      <div class="card_grid" id="domainsContainer">
+        
+         </div>
+     </main>
+    <!-- <section>
+      <div id="domainsContainer">
+        data from database
+      <h1>getting data from database</h1>
+      </div>
+    </section> -->
 
 
 </div>
-<script src="/javascript/script.js"></script>
-<script>
-  const domainsContainer = document.getElementById('domainsContainer');
- 
- function addDomain(domain){
-   domainsContainer.innerHTML+=` <div class="domain-box" data-domain-id="${domain.DOMAIN_ID}">
- <div id="domain-id">${domain.DOMAIN_ID}</div>
- <div id="domain-name">${domain.DOMAIN_NAME}</div>
-</div> `
- }
-
-document.addEventListener("DOMContentLoaded", () => {
-fetch(' http://localhost:8000/domains')
- .then(response => response.json())
- .then(domains => {
-   domainsContainer.innerHTML="";
-   domains.forEach((domain) => {
-     addDomain(domain)
-   });
-   const domainBoxes = document.querySelectorAll('.domain-box');
-
-   domainBoxes.forEach(domain => {
-   console.log("inside")
-     domain.addEventListener('click', () => {
-       console.log("clicked")
-         const domainId = domain.getAttribute('data-domain-id');
-         window.location.href = '/course?id=' + domainId;
-     });
- });
- })
-});
-</script>
+<script src="/javascript/search.js"></script>
+<script src="/javascript/domain.js"></script>
 </body>
 </html>

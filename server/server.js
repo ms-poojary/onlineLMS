@@ -27,6 +27,9 @@ app.get('/', (req, res) => {
 app.get('/signup', (req, res) => {
   res.sendFile('signup.html', { root: './views' });});
 
+app.get('/login', (req, res) => {
+    res.sendFile('login.html', { root: './views' });});
+  
 app.post("/signup", (req, res) => {
     const username=req.body.username;
     const name=req.body.fullname;
@@ -59,6 +62,8 @@ app.post("/signup", (req, res) => {
         console.log(error);
         res.status(500).send('Internal Server Error');
       } else {
+        // res.send(result)
+        // console.log(result)
         res.render(__dirname + '/views/course.ejs', {course: result });
       }
     });
