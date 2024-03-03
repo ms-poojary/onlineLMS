@@ -4,44 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>course page</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
     <style>
+        :root{
+    --color1:#22223b;
+    --color2:#4a4e69;
+    --color3:#9a8c98;
+    --color4:#c9ada7;
+    --color5:#f2e9e4;
+}
+body{
+    /* background-color: var(--color5); */
+}
+
+.course{
+    position: relative;
+    top:5rem
+}
         .card{
             width: 80vw;
             margin: auto;
-            background-color: rgb(124, 147, 252);
+            background-color: var(--color5);
+            color: var(--color2);
             padding: 10px;
             display: flex;
             justify-content: space-around;
-            margin-bottom: 20px;
-            box-shadow: 2px 2px 2px grey;
+            margin-bottom: 4rem;
+            box-shadow: 5px 20px 25px rgb(137, 137, 137);
         }
         .details{
             width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+           
         }
-        .details b{
-            font-size: 25px;
+        .head{
+            display: flex;
+            font-size: 20px;
+            justify-content: space-between;
+        }
+        .head h5{
+            font-size: 28px;
+            font-weight: 600;
+        }
+        button{
+            /* width: 130px; */
+            border-style: none;
+            background-color: var(--color3);
+            /* color:var(--color5); */
+            color: white;
+            font-size: 1rem;
+            padding: 0.5rem 1.8rem;
+            border-radius: 13px;
+            margin-right: 2rem;
         }
     </style>
 </head>
 <body>
-     <h1>courses</h1>
+        <nav class="navbar">
+            <div class="navbar-container container">
+                <input type="checkbox" name="" id="">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <ul class="menu-items">
+                    <li><a href="#">Home</a></li>
+                    <!-- <li><a href="#">About</a></li> -->
+                    <li><a href="signup">Signup</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><div class="wrapper">
+                      <div class="search-input">
+                        <a href="" target="_blank" hidden></a>
+                        <input type="text" placeholder="Type to search..">
+                        <div class="autocom-box">
+                        </div>
+                        <div class="icon"><i class="fas fa-search"></i></div>
+                      </div>
+                    </div> </li>
+                    <li> <i class="ri-user-line nav__login" id="login-btn"></i></li>
+                </ul>
+            
+            </div>
+        </nav>
+     <section class="course">
+        <!-- <h1>courses</h1> -->
     <% for(var i=0;i<course.length;i++){%>
-        <h1>im domain id of <%=course[i].DOMAIN_ID%></h1>
     <div class="card">
         <div class="image">
            <img src= "<%=course[i].CRS_IMG%>" width=250 height="150" alt="">
         </div>
         <div class="details">
-            <b><%=course[i].COURSE_NAME%>
-            </b>
+            <div class="head">
+                <h5><%=course[i].COURSE_NAME%></h5>
+                
             <p><%=course[i].DURATION%> hours</p>
+           </div>
             <p>Lorem ipsum dolor siipsa possimus nesciunt voluptatum quaerat unde, dolorum reiciendis magni incidunt quas aliquam nisi!</p>
+        
+            <div class="button">
+                <button>Enroll</button>
+                <button>start</button>
+            </div>
         </div>
+       
     </div>
     <!-- <div class="vedio">
         <iframe width="560" height="315" src="<%=course[i].VEDIO%>"
          title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div> -->
 <%}%>
+     </section>
 </body>
 </html>

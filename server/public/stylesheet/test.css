@@ -276,10 +276,16 @@ body {
 .card_img {
   margin-left: auto;
   display: block;
-}
-.card_img img{
+  object-fit: cover;
   width: 300px;
+  height: 200px;
 }
+.card:hover{ 
+  transform: scale(1.02);
+  box-shadow: 0 0 20px var(--color4),
+  0 0 40px var(--color4);
+}
+
 
 @media (max-width: 768px) {
   .card_grid {
@@ -323,3 +329,5 @@ p {
     border-bottom: 1px solid rgba(0,0,0,0);
   }
 } */
+
+
