@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>course page</title>
     <link rel="stylesheet" href="/stylesheet/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root{
     --color1:#22223b;
@@ -13,13 +15,10 @@
     --color4:#c9ada7;
     --color5:#f2e9e4;
 }
-body{
-    /* background-color: var(--color5); */
-}
 
 .course{
     position: relative;
-    top:5rem
+    top:6rem
 }
         .card{
             width: 80vw;
@@ -30,7 +29,8 @@ body{
             display: flex;
             justify-content: space-around;
             margin-bottom: 4rem;
-            box-shadow: 5px 20px 25px rgb(137, 137, 137);
+            border-radius: 14px;
+            box-shadow: 3px 3px 15px rgb(137, 137, 137);
         }
         .details{
             width: 70%;
@@ -40,13 +40,31 @@ body{
            
         }
         .head{
+            margin-bottom: 0.5rem;
             display: flex;
             font-size: 20px;
             justify-content: space-between;
         }
-        .head h5{
+        .head h6{
             font-size: 28px;
             font-weight: 600;
+        }
+        .para .vedio-tag{
+            padding: 0.25rem;
+            background-color:#1d36d441;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: white;
+        }
+        .para p{
+            margin:0.5rem;
+        }
+        .para span i{
+            color: gold;
+             margin-left: 5px;
+        }
+        .image img{
+            border-radius: 8px;
         }
         button{
             /* width: 130px; */
@@ -56,9 +74,59 @@ body{
             color: white;
             font-size: 1rem;
             padding: 0.5rem 1.8rem;
-            border-radius: 13px;
+            border-radius: 10px;
             margin-right: 2rem;
         }
+        .time{
+            padding: 5px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* vedio class */
+        
+.popup{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 5;
+    display: block;
+    backdrop-filter: blur(30px);
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+.pop-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+   width: 80vw;
+   height: 80vh;
+   position: relative;
+   background-color:#4a4e695e;
+ 
+    
+}
+.pop-container h4{
+    font-size: 2rem;
+}
+.pop-container i{
+    position: absolute;
+    right:1rem;
+    top: 1rem;
+    font-size: 2.5rem;
+
+}
+.pop-container iframe{
+    width: 680px;
+    height: 420px;
+    background-color: var(--color2);
+}
+body{
+    overflow: auto;
+}
     </style>
 </head>
 <body>
@@ -89,33 +157,55 @@ body{
             
             </div>
         </nav>
-     <section class="course">
+       
         <!-- <h1>courses</h1> -->
+
+        <% for(var i=0;i<course.length;i++){%>
+        <section>
+            <div id="popup<%=i%>" class="popup">
+                <div class="pop-container">
+                    <h4>course Name</h4>
+                    <iframe  src="<%=course[i].VEDIO%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen controls></iframe>
+                    <i id="close" class="fa-solid fa-xmark close"></i>
+                </div>
+            </div>
+        </section>
+        <%}%>
+
     <% for(var i=0;i<course.length;i++){%>
+       
+     <section class="course">
     <div class="card">
         <div class="image">
            <img src= "<%=course[i].CRS_IMG%>" width=250 height="150" alt="">
         </div>
         <div class="details">
             <div class="head">
-                <h5><%=course[i].COURSE_NAME%></h5>
-                
+                <h6><%=course[i].COURSE_NAME%></h6>
+               
+             <div class="time">
+                <span><i class="fa-regular fa-clock"></i></span>
             <p><%=course[i].DURATION%> hours</p>
+            </div>
            </div>
+           <div class="para">
+            <span class="vedio-tag">Video Lesson</span>
+            
+            <span><i class="fa-solid fa-star"></i></span>
             <p>Lorem ipsum dolor siipsa possimus nesciunt voluptatum quaerat unde, dolorum reiciendis magni incidunt quas aliquam nisi!</p>
         
+           </div>
             <div class="button">
                 <button>Enroll</button>
-                <button>start</button>
+                <button class="start-button" onclick="show('popup<%=i%>')">start</button>
+
             </div>
         </div>
-       
     </div>
-    <!-- <div class="vedio">
-        <iframe width="560" height="315" src="<%=course[i].VEDIO%>"
-         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div> -->
+</section>
 <%}%>
-     </section>
+    
+
+     <script src="/javascript/script.js"></script>
 </body>
 </html>
