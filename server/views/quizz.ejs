@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz Page</title>
+</head>
+<body>
+    <h1>Quiz Page</h1>
+    <section>
+        <form action="/quizz" method="POST">
+            <label class="questions"> <h2><%= questions[0].QUEST_TEXT %></h2></label>
+            <% for(var i=0; i<answers.length; i++) { %>
+                <input class="answers" name="option" type="radio" value="<%= answers[i].OPTION_ID %>"> <%= answers[i].OPTION_ID %> ) <%= answers[i].OPTION_TEXT %> <br>
+                <%}%>
+            <input type="hidden" name="questid" value="<%= questions[0].QUEST_ID %>">
+           
+            <input type="submit" value="Submit">
+          
+        </form>
+        
+        <div id="scoreDisplay"></div>
+    </section>
+
+</body>
+</html>

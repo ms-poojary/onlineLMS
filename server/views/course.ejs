@@ -48,6 +48,7 @@
         .head h6{
             font-size: 28px;
             font-weight: 600;
+            color: var(--color1);
         }
         .para .vedio-tag{
             padding: 0.25rem;
@@ -65,12 +66,11 @@
         }
         .image img{
             border-radius: 8px;
+            background-color: var(--color3);
         }
         button{
-            /* width: 130px; */
             border-style: none;
             background-color: var(--color3);
-            /* color:var(--color5); */
             color: white;
             font-size: 1rem;
             padding: 0.5rem 1.8rem;
@@ -111,6 +111,7 @@
 }
 .pop-container h4{
     font-size: 2rem;
+    color: var(--color1);
 }
 .pop-container i{
     position: absolute;
@@ -164,7 +165,7 @@ body{
         <section>
             <div id="popup<%=i%>" class="popup">
                 <div class="pop-container">
-                    <h4>course Name</h4>
+                    <h4><%=course[i].COURSE_NAME%></h4>
                     <iframe  src="<%=course[i].VEDIO%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen controls></iframe>
                     <i id="close" class="fa-solid fa-xmark close"></i>
                 </div>
@@ -177,7 +178,7 @@ body{
      <section class="course">
     <div class="card">
         <div class="image">
-           <img src= "<%=course[i].CRS_IMG%>" width=250 height="150" alt="">
+           <img src= "<%=course[i].CRS_IMG%>" width=252 height="152" alt="">
         </div>
         <div class="details">
             <div class="head">
@@ -197,7 +198,7 @@ body{
            </div>
             <div class="button">
                 <button>Enroll</button>
-                <button class="start-button" onclick="show('popup<%=i%>')">start</button>
+                <button class="start-button">start</button>
 
             </div>
         </div>

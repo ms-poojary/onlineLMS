@@ -1,31 +1,29 @@
-// im script
-const popup=document.querySelectorAll('.popup');
-const start=document.querySelector('#start');
+// // Get all popups
+const popups = document.querySelectorAll('.popup');
 
+// Hide all popups initially
+popups.forEach(popup => {
+    popup.style.display = 'none';
+});
 
-for(let i=0;i<popup.length;i++){
-popup[i].style.display='none';
-}
+// Get all buttons
+const buttons = document.querySelectorAll('.start-button');
 
-function show(popupId) {
-    var popup = document.getElementById(popupId);
-    
-const close=document.querySelectorAll('.close');
-    if (popup) {
-        if (popup.style.display === 'block') {
-            popup.style.display = 'none';
-        } else {
-            popup.style.display = 'block';
-        }
-    }
-    close.forEach(element => {
-        close.addEventListener('click',()=>{
-            console.log("close is clicked")
-            popup.style.display='none'
-        })
+// Attach click event listeners to buttons
+buttons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        // Show the corresponding popup when the button is clicked
+        popups[index].style.display = 'flex';
     });
-   
-}
+});
 
+// Get all close buttons
+const closeButtons = document.querySelectorAll('.close');
 
-
+// Attach click event listeners to close buttons
+closeButtons.forEach((closeButton, index) => {
+    closeButton.addEventListener('click', () => {
+        // Hide the corresponding popup when the close button is clicked
+        popups[index].style.display = 'none';
+    });
+});
