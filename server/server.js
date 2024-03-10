@@ -4,7 +4,9 @@ var http=require('http');
 const path = require('path');
 const bodyparser=require('body-parser')
 const ejs=require('ejs');
-
+const bcrypt=require('bcryptjs');
+const session=require('express-session');
+// const bcrypt = require('bcryptjs');
 // const cors = require("cors");
 // const { response } = require('express');
 
@@ -19,42 +21,95 @@ app.use(express.static('public'));
 app.set('views','./views')
 app.set('view engine','ejs')
 
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  // cookie: { secure: false } // Change to true if using HTTPS
+}));
 
-app.get('/', (req, res) => {
- res.sendFile('index.html',{root:__dirname})
+  app.get('/', (req, res) => {
+  res.sendFile('login.html', { root: './views' });
 });
+
+  app.post('/', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+  
+    console.log("im the great"+username + " " + password);
+    if (username && password) {
+      con.query('SELECT * FROM users WHERE USERNAME = ?', [username], (error, results, fields) => {
+        if (results.length > 0) {
+            if (password==results[0].USER_PASS) {
+              req.session.loggedin = true;
+              req.session.username = username;
+              res.redirect('/home');
+            } else {
+              res.send('password doesnt match');
+            } 
+        } else {
+          res.send('Incorrect Username and/or Password!');
+        }
+      });
+    } else {
+      res.send('Please enter Username and Password!');
+    }
+  });
+  app.get('/home',(req,res)=>{
+    res.sendFile('index.html',{root:__dirname});
+  })
+  
+// app.get('/home', (req, res) => {
+//   if (req.session.loggedin) {
+//  res.sendFile('index.html',{root:__dirname})
+//  console.log(req.session.username)
+//   }
+//   else {
+//     res.redirect('/');
+//   }
+// });
+
+
 
 app.get('/signup', (req, res) => {
   res.sendFile('signup.html', { root: './views' });});
 
-app.get('/login', (req, res) => {
-    res.sendFile('login.html', { root: './views' });});
-  
-app.post("/signup", (req, res) => {
-    const username=req.body.username;
-    const name=req.body.fullname;
-    const email = req.body.email;
-    const password=req.body.pass;
-    const cpass=req.body.confirm_pass;
-    const role=req.body.role;
-    console.log(req.body)
-    if(password==cpass){
-    con.query("INSERT INTO `users` (`USERNAME`, `FULLNAME`, `EMAIL`, `USER_PASS`, `ROLE`) VALUES (?,?,?,?,?);",
-    [username,name,email,cpass,role],
-      (err, result) => {
-        if (err) {
-          console.log(err.message);
+
+    app.post("/signup", (req, res) => {
+        const username = req.body.username;
+        const name = req.body.fullname;
+        const email = req.body.email;
+        const password = req.body.pass;
+        const cpass = req.body.confirm_pass;
+        const role = req.body.role;
+    
+        if (password === cpass) {
+            // Hash the passwor
+                var sql1 ="INSERT INTO `users` (`USERNAME`, `FULLNAME`, `EMAIL`, `USER_PASS`, `ROLE`) VALUES (?,?,?,?,?);"
+                    // Insert user into the database with hashed password
+                    con.query(sql1,
+                        [username, name, email, cpass, role],
+                        (err, result) => {
+                            if (err) {
+                                console.error('Error inserting user:', err.message);
+                                res.status(500).send('Error inserting user');
+                            } else {
+                                console.log("Value inserted successfully");
+                                res.send("User registered successfully");
+                            }
+                        }
+                    );
+               
+            
         } else {
-          console.log("value inserted succesffully");
-          
+            res.status(400).send('Passwords do not match');
         }
-      }
-    );
-    } 
-  });
+    });
+    
   
 // all the courses
   app.get('/courses', function(req, res) {
+    console.log(req.session.username)
     console.log("I'm on the course page");
     var sql = "SELECT * FROM course";
     
