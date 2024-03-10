@@ -3,24 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizz Page</title>
+    <title>Quiz Page</title>
+    
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <style>
+            
+    :root{
+        --color1:#22223b;
+        --color2:#4a4e69;
+        --color3:#9a8c98;
+        --color4:#c9ada7;
+        --color5:#f2e9e4;
+    }
+        section{
+         width: 100vw;
+          background-color:var(--color4);
+        }
+        
+        @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&display=swap");
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Averia Serif Libre", cursive;
+	background-color: var(--color1);
+	color: #ffffff;
+}
+
+.radio-section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+}
+.radio-list h2{
+    margin: 0.5rem;
+}
+h1 {
+    text-align: center;
+	margin-bottom: 20px;
+}
+.radio-item [type="radio"] {
+	display: none;
+}
+.radio-item + .radio-item {
+	margin-top: 15px;
+}
+.radio-item label {
+	display: block;
+	padding: 20px 60px;
+	background: var(--color1);
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 400;
+	min-width: 250px;
+	white-space: nowrap;
+	position: relative;
+	transition: 0.4s ease-in-out 0s;
+}
+.radio-item label:after,
+.radio-item label:before {
+	content: "";
+	position: absolute;
+	border-radius: 50%;
+}
+.radio-item label:after {
+	height: 19px;
+	width: 19px;
+	border: 2px solid #524eee;
+	left: 19px;
+	top: calc(50% - 12px);
+}
+.radio-item label:before {
+	background: #524eee;
+	height: 20px;
+	width: 20px;
+	left: 21px;
+	top: calc(50%-5px);
+	transform: scale(5);
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.4s ease-in-out 0s;
+}
+.radio-item [type="radio"]:checked ~ label {
+	border-color: #524eee;
+}
+.radio-item [type="radio"]:checked ~ label::before {
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1);
+}
+
+    </style>
+
+
 </head>
 <body>
     <h1>Quiz Page</h1>
-    <section>
-        <form action="/quizz" method="POST">
-            <label class="questions"> <h2><%= questions[0].QUEST_TEXT %></h2></label>
-            <% for(var i=0; i<answers.length; i++) { %>
-                <input class="answers" name="option" type="radio" value="<%= answers[i].OPTION_ID %>"> <%= answers[i].OPTION_ID %> ) <%= answers[i].OPTION_TEXT %> <br>
-                <%}%>
-            <input type="hidden" name="questid" value="<%= questions[0].QUEST_ID %>">
-           
-            <input type="submit" value="Submit">
-          
-        </form>
-        
-        <div id="scoreDisplay"></div>
-    </section>
 
+    <form action="/quizz" method="POST">
+
+            <% for (var i = 0; i < questions.length; i++) { %>
+                
+        <section class="radio-section">
+                <div class="radio-list">
+                    <h2><%= questions[i].QUEST_TEXT %></h2>
+                    <input type="hidden" name="questionid" value="<%=questions[i].QUEST_ID%>">
+              
+                <% for (var j = 0; j < answers.length; j++) { %>
+                     
+                    <% if (answers[j].QUEST_ID === questions[i].QUEST_ID) { %>
+                        
+               <div class="radio-item">
+                        <input type="radio" id="radio<%=j+1%>" name="answers[<%= questions[i].QUEST_ID %>]" value="<%= answers[j].OPTION_ID %>">
+                       <label for="radio<%=j+1%>"> <%= answers[j].OPTION_ID %> ) <%= answers[j].OPTION_TEXT %> </label>
+                     </div>
+
+                    <% } %>
+                <% } %>
+                    </div>
+                </section>
+            <% } %>
+        
+        <input type="submit" value="Submit" id="submitButton">
+       <button id="delete">del</button>
+    </form>
+    
+    <div class="check">
+        <div class="checkscore">check score</div>
+        <div id="scoreDisplay">
+     
+        </div>
+        
+    </div>
 </body>
+<script>
+     var radioButtons = document.querySelectorAll('input[type="radio"]');
+
+// Add event listener to each radio button
+radioButtons.forEach(function(button) {
+    button.addEventListener('change', function() {
+        // Check if all radio buttons are checked
+        var allChecked = true;
+        radioButtons.forEach(function(btn) {
+            if (!btn.checked) {
+                allChecked = false;
+            }
+        });
+
+        // Toggle visibility of submit button
+        var submitButton = document.getElementById('submitButton');
+        if (allChecked) {
+            submitButton.style.display = 'none';
+        } else {
+            submitButton.style.display = 'block';
+        }
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+    var scoreID = document.querySelector('#scoreDisplay');
+    var checkScoreButton = document.querySelector('.checkscore');
+
+    checkScoreButton.addEventListener('click', () => {
+        fetch('http://localhost:8006/totalscore')
+            .then(response => response.json())
+            .then(score => {
+                scoreID.innerHTML = score;
+            })
+            .catch(error => {
+                console.error('Error fetching total score:', error);
+                scoreID.innerHTML = 'Error fetching score';
+            });
+    });
+});
+
+
+</script>
 </html>
