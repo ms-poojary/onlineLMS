@@ -2,7 +2,7 @@
 
 /* @import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&display=swap"); */
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); */
 
 :root{
     --color1:#22223b;
@@ -26,10 +26,9 @@
     padding: 0;
     box-sizing: border-box;
   }
-/* body{
-  
+body{
 	font-family: "Averia Serif Libre", cursive;
-} */
+}
 .main{
     background-image: url('../images/table.avif');
     width: 100vw;
@@ -121,11 +120,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: green;
+  /* background-color: green; */
 
   align-items: center;
   text-align: center;
-  background-color: red;
+  /* background-color: red; */
   /* width: 500px; */
   /* height: 500px; */
   @media screen and (max-width: 930px) {
@@ -139,7 +138,7 @@ body {
 
    background-color: var(--color3); 
    font-size: 1.2rem;
-  position: absolute;
+  /* position: absolute; */
   color: white;
   text-decoration: none;
   display: inline-block;
@@ -148,7 +147,7 @@ body {
   border: 2px solid white;
   border-radius: 10px;
   padding: 10px 20px;
-  margin: 40px;
+  /* margin: 40px; */
   box-shadow: 0 2px 5px 0 rgba(3,6,26,0.15);
   transition: .5s all ease-in-out;
   &:hover {
@@ -181,16 +180,19 @@ body {
   
 } */
 /* domain */
+.domain{
+  background-color: var(--color5);
+}
 .domain-head{
   height: 100px;
-  background-color: var(--color3);
+  background-color: var(--color4);
   margin-top: 4.5rem;
   justify-content: center;
   display: flex;
   align-items: center;
 }
 .domain-head h3{
-  color: var(--color5);
+  color: var(--color2);
   font-weight: 500;
   font-size: 2rem;
 }
@@ -203,7 +205,7 @@ body {
 
 
 .card_grid {
-  margin-top: 3rem;
+  padding: 3rem 3rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   justify-content: center;
@@ -212,6 +214,7 @@ body {
 }
 
 .card {
+  background-color: white;
   max-width: 320px;
   margin: 0 auto;
   padding: 2rem;
@@ -246,13 +249,21 @@ body {
 }
 
 .quizz{
+  /* margin-top: 2rem; */
+  padding: 3rem;
   background-color: var(--color4);
-
+  gap: 2rem;
 }
+/* .quizz button{
+  background-color: var(--color2);
+  color: var(--color5);
+  padding: 2rem;
+} */
 
-.quizz-head h3{
-  font-size: 1.2rem;
+.quiz-head h3{
+  font-size: 1.7rem;
   color: var(--color2);
+  text-align: center;
 }
 
 
