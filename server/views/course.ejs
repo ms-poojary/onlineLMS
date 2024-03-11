@@ -15,6 +15,10 @@
     --color4:#c9ada7;
     --color5:#f2e9e4;
 }
+body{
+    
+	font-family: "Averia Serif Libre", cursive;
+}
 
 .course{
     position: relative;
@@ -64,7 +68,13 @@
             color: gold;
              margin-left: 5px;
         }
+        .image{
+            object-fit: contain;
+        }
         .image img{
+            
+            width: 250px;
+            height: 150px;
             border-radius: 8px;
             background-color: var(--color3);
         }
@@ -178,7 +188,7 @@ body{
      <section class="course">
     <div class="card">
         <div class="image">
-           <img src= "<%=course[i].CRS_IMG%>" width=252 height="152" alt="">
+           <img src= "<%=course[i].CRS_IMG%>" alt="">
         </div>
         <div class="details">
             <div class="head">
@@ -193,8 +203,7 @@ body{
             <span class="vedio-tag">Video Lesson</span>
             
             <span><i class="fa-solid fa-star"></i></span>
-            <p>Lorem ipsum dolor siipsa possimus nesciunt voluptatum quaerat unde, dolorum reiciendis magni incidunt quas aliquam nisi!</p>
-        
+            <p><%=course[i].COURSE_DESC%></p>
            </div>
             <div class="button">
                 <button>Enroll</button>

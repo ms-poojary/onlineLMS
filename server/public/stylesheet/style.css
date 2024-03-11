@@ -53,9 +53,9 @@
 
 .navbar-container{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     height: 64px;
-    align-items: center;
+    /* align-items: center; */
 
 }
 
@@ -91,88 +91,46 @@
   background: #ff654a;
 }
 
-/* .wrapper{
-  
-    box-shadow: 0px 5px 10px 0px #aaa;ax-width: 450px;
-  margin: 150px auto;
-} */
 
-.wrapper .search-input{
-  background: #fff;
-  /* width: 100%; */
-  border-radius: 5px;
-  position: relative;
-  /* box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12); */
-}
+.profile{
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile i{
+    color :white
+  }
 
-.search-input input{
-  /* height: 40px; */
-  width: 100%;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  padding: 0 30px 0 20px;
-  font-size: 16px;
-  /* box-shadow: 0px 1px 5px rgba(0,0,0,0.1); */
-}
-
-.search-input.active input{
-  border-radius: 5px 5px 0 0;
-  
-}
-
-.search-input .autocom-box{
-  padding: 0;
-  opacity: 0;
-  width: 30vw;
-  pointer-events: none;
-  /* max-height: 280px; */
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: absolute;
-  top: 60px;
-  right: 0px;
-  
-}
-
-.search-input.active .autocom-box{
-  /* padding: 10px 8px; */
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.autocom-box li{
-  list-style: none;
-  padding: 8px 12px;
-  display: none;
-  width: 100%;
-  cursor: default;
-  border-radius: 3px;
-  font-size: 18px;
-
-}
-
-.search-input.active .autocom-box li{
-  display: block;
-}
-.autocom-box li:hover{
-  background:var(--color3)
-}
-
-.search-input .icon{
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  height: 55px;
-  width: 55px;
-  text-align: center;
-  line-height: 40px;
-  font-size: 20px;
-  color: #e4ff4b;
-  cursor: pointer;
-}
-
-
+  .profile-details{
+    width: 30vw;
+    height: 80vh;
+    background-color: var(--color5);
+    position:fixed;
+    right: 1rem;
+    top:5rem;
+    z-index: 999;
+  }
+  .profile-details img{
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  .user{
+    padding: 1rem;
+  }
+  user h2{
+    font-size: 1.3rem;
+  }
+  .enrolled span{
+    font-size: 1.2rem;
+    background-color: gray;
+    padding: 1rem;
+    margin: 1rem;
+  }
 /* main section */
 
 .main{
