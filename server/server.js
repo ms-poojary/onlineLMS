@@ -63,6 +63,7 @@ app.post('/', (req, res) => {
 });
 
   // for home
+
   // app.get('/home',(req,res)=>{
   //   res.sendFile('index.html',{root:__dirname});
   // })
@@ -107,7 +108,131 @@ app.post("/signup", (req, res) => {
         res.status(400).send('Passwords do not match');
     }
 });
-    
+
+
+// // profile
+// app.get('/profile', function(req, res) {
+//     var username = res.locals.username;
+
+//     // Query the database to fetch user enrollment details
+//     var sql1 = "SELECT * FROM users NATURAL JOIN enroll WHERE USERNAME=?";
+//     con.query(sql1, [username], (error, enrollResults) => {
+//         if (error) {
+//             console.log(error);
+//             return res.status(500).json({ error: 'Error fetching user enrollment details' });
+//         }
+
+//         // Extract course ID and domain ID from enrollment results
+//         var courseId = enrollResults[0].COURSE_ID;
+//         var domainId = enrollResults[0].DOMAIN_ID;
+
+//         // Query the database to fetch course details using course ID and domain ID
+//         var sql2 = "SELECT * FROM course WHERE COURSE_ID = ? AND DOMAIN_ID = ?";
+//         con.query(sql2, [courseId, domainId], (error, courseResults) => {
+//             if (error) {
+//                 console.log(error);
+//                 return res.status(500).json({ error: 'Error fetching course details' });
+//             }
+
+//             // Combine enrollment and course data
+//             var responseData = {
+//                 user: enrollResults[0],
+//                 courses: courseResults[0]
+//             };
+
+//             // Send the combined data as JSON response to the client
+//             res.json(responseData);
+//         });
+//     });
+// });
+
+app.get('/profile', function(req, res) {
+  var username = res.locals.username;
+
+  // Query the database to fetch user enrollment details
+  var sql1 = "SELECT * FROM users NATURAL JOIN enroll WHERE USERNAME=?";
+  con.query(sql1, [username], (error, enrollResults) => {
+      if (error) {
+          console.log(error);
+          return res.status(500).json({ error: 'Error fetching user enrollment details' });
+      }
+
+      // Initialize an array to store course details for all enrollments
+      var coursesPromises = [];
+
+      // Fetch course details for each enrollment
+      enrollResults.forEach(enrollment => {
+          var courseId = enrollment.COURSE_ID;
+          var domainId = enrollment.DOMAIN_ID;
+
+          // Push the promise of fetching course details into the array
+          coursesPromises.push(new Promise((resolve, reject) => {
+              var sql2 = "SELECT * FROM course WHERE COURSE_ID = ? AND DOMAIN_ID = ?";
+              con.query(sql2, [courseId, domainId], (error, courseResults) => {
+                  if (error) {
+                      reject(error);
+                  } else {
+                      resolve(courseResults[0]);
+                  }
+              });
+          }));
+      });
+
+      // Wait for all course details promises to resolve
+      Promise.all(coursesPromises)
+          .then(courseDetails => {
+              // Combine enrollment and course data
+              var responseData = {
+                  user: enrollResults, // Send all enrollment details
+                  courses: courseDetails // Send details of all courses
+              };
+
+              // Send the combined data as JSON response to the client
+              res.json(responseData);
+          })
+          .catch(error => {
+              console.log(error);
+              return res.status(500).json({ error: 'Error fetching course details' });
+          });
+  });
+});
+
+
+
+app.post('/enroll', (req, res) => {
+  const { courseId, domainId } = req.body;
+  console.log(courseId+"and im "+domainId)
+ var username=res.locals.username;
+ console.log("im user id for enroll "+username);
+
+ var sql1=`select USER_ID from users where USERNAME=?;`
+
+ con.query(sql1,[username],(error,result) => {
+  if(error) console.log(error );
+  else{
+   var id=result[0].USER_ID;
+    var date= new Date();
+    const year = date.getFullYear();
+const month = date.getMonth() + 1; 
+const day = date.getDate();
+const Currentdate=`${year}-${month}-${day}`;
+
+      // Insert data into the enroll table
+  const sql2 = 'INSERT INTO enroll (USER_ID,DOMAIN_ID,COURSE_ID,ENROLL_DATE) VALUES (?,?,?,?)';
+  con.query(sql2, [id,domainId,courseId,Currentdate], (err, result) => {
+      if (err) {
+          console.error(err);
+          res.status(500).send('Error enrolling user');
+          return;
+      }
+      res.status(200).send('User enrolled successfully');
+  });
+  }
+ })
+  console.log(courseId+"and im "+domainId)
+
+});
+
   
 // all the courses
   app.get('/courses', function(req, res) {
