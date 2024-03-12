@@ -62,6 +62,18 @@ app.post('/', (req, res) => {
   }
 });
 
+
+app.get('/logout', (req, res) => {
+  // Destroy the session to log the user out
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // Redirect the user to the login page or any other appropriate page
+      res.redirect('/');
+    }
+  });
+});
   // for home
 
   // app.get('/home',(req,res)=>{

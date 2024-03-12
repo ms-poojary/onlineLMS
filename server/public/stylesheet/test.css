@@ -108,55 +108,6 @@ body {
 } */
 
 
-.button-container {
-  margin: 60px auto 0;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center; */
-  width: 80%;
-  /* min-height: 100vh; */
-  /* margin: 0 auto; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-color: green; */
-
-  align-items: center;
-  text-align: center;
-  /* background-color: red; */
-  /* width: 500px; */
-  /* height: 500px; */
-  @media screen and (max-width: 930px) {
-    flex-direction: column;
-  }
-}
-
-
-
-.button {
-
-   background-color: var(--color3); 
-   font-size: 1.2rem;
-  /* position: absolute; */
-  color: white;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid white;
-  border-radius: 10px;
-  padding: 10px 20px;
-  /* margin: 40px; */
-  box-shadow: 0 2px 5px 0 rgba(3,6,26,0.15);
-  transition: .5s all ease-in-out;
-  &:hover {
-    cursor: pointer;
-    background:var(--color5);
-    color:var(--color2);
-    animation: none;
-  }
-}
 .button-float {
   animation: float 1.5s linear alternate infinite;
 }
@@ -186,9 +137,10 @@ body {
 .domain-head{
   height: 100px;
   background-color: var(--color4);
-  margin-top: 4.5rem;
+  margin-top: 4rem;
   justify-content: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .domain-head h3{
@@ -196,7 +148,10 @@ body {
   font-weight: 500;
   font-size: 2rem;
 }
-
+.domain-head p{
+  font-size: 1.3rem;
+  color: var(--color5);
+}
 
 
 .card_title {
