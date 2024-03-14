@@ -52,6 +52,7 @@ li{
     /* color:var(--color7); */
     /* opacity: 0.85; */
     z-index: 100;
+    overflow-x: hidden;
 }
 .navbar.active{
   background-color: var(--color4);
@@ -397,7 +398,7 @@ li{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 5rem;
+    /* margin-top: 4rem; */
   }
   
   .social-icon,
