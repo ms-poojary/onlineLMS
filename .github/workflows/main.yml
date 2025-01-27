@@ -1,0 +1,22 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Run this workflow on pushes to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Check out your repository code
+
+      - name: Print a message
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Run a simple script
+        run: |
+          echo "Testing GitHub Actions Workflow"
+          echo "Current date is $(date)"
